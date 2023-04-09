@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+
+{% block title %}
+Комментарии
+{% endblock title %}
+
+{% block content %}
+<h1>Комментарии</h1>
+
+<div class="container">
+            <div class="row", style="margin-top:50px">
+              {% for comment in comments %}
+                  <div class="col-sm">
+                    <div class="card border-secondary mb-3" style="max-width: 20rem;">
+                      <div class="card-header">{{comment.post}}</div>
+                      <div class="card-body">
+                          <h4 class="card-title">{{comment.user}}</h4>
+                        <p class="card-text">{{comment.comment_text|cenzor}}</p>
+                          <p class="card-text">Рейтинг комментария: {{comment.comment_rating}}</p>
+                          <p class="card-text">Дата: <p>{{comment.date_create}}</p></p>
+                      </div>
+                    </div>
+                </div>
+              {% endfor %}
+            </div>
+        </div>
+
+{# Добавляем пагинацию на страницу #}
+
+   {# Информация о предыдущих страницах #}
+   {% if page_obj.has_previous %}
+       <a href="?page=1">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+
+   {# Информация о текущей странице #}
+   {{ page_obj.number }}
+
+   {# Информация о следующих страницах #}
+   {% if page_obj.has_next %}
+       <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+
+
+{% endblock content %}

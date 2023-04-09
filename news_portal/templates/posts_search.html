@@ -1,0 +1,83 @@
+<!--HomeWork module D7-->
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block title %}
+Публикации
+{% endblock title %}
+
+{% block content %}
+
+<h1>Все публикации</h1>
+
+{# Добавляем форму, которая объединяет набор полей, которые будут отправляться в запросе #}
+   <form action="" method="get">
+       {# Переменная, которую мы передали через контекст, может сгенерировать нам форму с полями #}
+
+       <fieldset>
+           <p>
+               <label for="title">Title contains</label>
+               <input type="text" id="title" name="title__icontains">
+           </p>
+           <p>
+               <label for="post_text">Post text contains</label>
+               <input type="text" id="post_text" name="post_text__icontains">
+           </p>
+           <p>
+                <label for="date_create__gt">Date start</label>
+                <input type="date" id="date_create__gt" name="date_create__gt">
+           </p>
+           <p>
+                <label for="date_create__lt">Date end</label>
+                <input type="date" id="date_create__lt" name="date_create__lt">
+           </p>
+       </fieldset>
+
+
+       {# Добавим кнопку отправки данных формы #}
+       <input type="submit" value="Найти" />
+   </form>
+
+<div class="container">
+            <div class="row", style="margin-top:50px">
+              {% for post in posts %}
+                  <div class="col-sm">
+                    <div class="card border-secondary mb-3" style="max-width: 20rem;">
+                      <div class="card-header">{{post.title|cenzor}}</div>
+                      <div class="card-body">
+                        <h4 class="card-title">{{post.author}}</h4>
+                          <p class="card-text">{{post.date_create}}</p>
+                        <p class="card-text">{{post.post_text|cenzor|truncatechars:20}}</p>
+                      </div>
+                    </div>
+                </div>
+              {% endfor %}
+            </div>
+        </div>
+
+{# Добавляем пагинацию на страницу #}
+
+   {# Информация о предыдущих страницах #}
+   {% if page_obj.has_previous %}
+       <a href="?page=1">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+
+   {# Информация о текущей странице #}
+   {{ page_obj.number }}
+
+   {# Информация о следующих страницах #}
+   {% if page_obj.has_next %}
+       <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+
+
+{% endblock content %}

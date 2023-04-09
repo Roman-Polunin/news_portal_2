@@ -1,0 +1,32 @@
+<!--HomeWork module D6-->
+{% extends 'base.html' %}
+{% load custom_filters %}
+
+{% block title %}
+Авторы
+{% endblock title %}
+
+{% block content %}
+<h1>Авторы</h1>
+
+<div class="container">
+    <div class="row", style="margin-top:50px">
+         {% for author in authors %}
+             <div class="col-sm">
+                 <div class="card border-secondary mb-3" style="max-width: 20rem;">
+                     <div class="card-header">{{author.user}}</div>
+                     <div class="card-body">
+                         {% if author|update_author_rating > 0 %}
+                            <p class="card-text">Рейтинг автора: {{author|update_author_rating}}</p>
+                         {% else %}
+                            <p class="card-text">Рейтинг автора: 0</p>
+                         {% endif %}
+                         <p class="card-text">Дата регистрации автора: <p>{{author.user.date_joined}}</p></p>
+                     </div>
+                 </div>
+             </div>
+         {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

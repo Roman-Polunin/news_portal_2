@@ -1,0 +1,33 @@
+<!--HomeWork module D6-->
+{% extends 'base.html' %}
+{% load custom_filters %}
+
+{% block title %}
+Новости
+{% endblock title %}
+
+{% block content %}
+
+{% if post %}
+
+<h1>{{post.title|cenzor}}</h1>
+
+<div class="container">
+            <div class="row", style="margin-top:50px">
+              <div class="col-sm">
+                    <div class="card border-secondary mb-3">
+                     <div class="card-body">
+                        <p class="card-text">{{post.post_text|cenzor}}</p>
+                         <p class="card-text", style="margin-right: auto">{{post.author}}, {{post.date_create|date:'d.m.Y h:m:s'}}</p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% else %}
+
+    <h3>"Публикация не найдена!"</h3>
+
+{% endif %}
+{% endblock content %}
