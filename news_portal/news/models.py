@@ -2,6 +2,8 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator
+from django.urls import reverse
 
 
 class Author(models.Model):  # наследуемся от класса Model
@@ -73,6 +75,9 @@ class Post(models.Model):
         else:
             preview_text = self.post_text
         return preview_text
+
+    def get_absolute_url(self):
+        return reverse('post_detail', args=[str(self.id)])
 
 
 class PostCategory(models.Model):

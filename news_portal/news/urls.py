@@ -24,4 +24,5 @@ urlpatterns = [
     path('', PostList.as_view()),
     path('', CommentList.as_view()),
     path('', BaseView.as_view()),
+    path('', PostCreate.as_view()),
 ]

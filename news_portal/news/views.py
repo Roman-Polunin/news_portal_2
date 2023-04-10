@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.views.generic import ListView, TemplateView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, TemplateView, DetailView, CreateView
 from .models import *
 from .filters import PostFilter
+from .forms import PostForm
 
 class AuthorList(ListView):
     model = Author
@@ -99,3 +101,12 @@ class BaseView(TemplateView):
 
 class ContactsView(TemplateView):
     template_name = 'contacts.html'
+
+
+class PostCreate(CreateView):
+    # Указываем нашу разработанную форму
+    form_class = PostForm
+    # модель товаров
+    model = Post
+    # и новый шаблон, в котором используется форма.
+    template_name = 'post_edit.html'

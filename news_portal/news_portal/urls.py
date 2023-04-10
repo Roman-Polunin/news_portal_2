@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from news.views import BaseView, PostList, PostListSearch, AuthorList, CategoryList, CommentList, NewsList, PostListDetail, ArticleList, ContactsView
+from news.views import BaseView, PostList, PostListSearch, AuthorList, CategoryList, CommentList, NewsList, PostListDetail, ArticleList, ContactsView, PostCreate
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,10 +23,11 @@ urlpatterns = [
     path('posts/', PostList.as_view()),
     path('news/', NewsList.as_view()),
     path('articles/', ArticleList.as_view()),
-    path('posts/<int:pk>', PostListDetail.as_view()),
+    path('posts/<int:pk>', PostListDetail.as_view(), name = 'post_detail'),
     path('categories/', CategoryList.as_view()),
     path('comments/', CommentList.as_view()),
     path('', BaseView.as_view()),
     path('contacts/', ContactsView.as_view()),
     path('posts/search/', PostListSearch.as_view()),
+    path('posts/create/', PostCreate.as_view(), name = 'post_create'),
 ]
