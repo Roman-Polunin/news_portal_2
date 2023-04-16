@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, TemplateView, DetailView, CreateView
+from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView, DeleteView
 from .models import *
 from .filters import PostFilter
 from .forms import PostForm
@@ -103,10 +103,47 @@ class ContactsView(TemplateView):
     template_name = 'contacts.html'
 
 
-class PostCreate(CreateView):
+class NewsCreate(CreateView):
     # Указываем нашу разработанную форму
     form_class = PostForm
     # модель товаров
     model = Post
     # и новый шаблон, в котором используется форма.
     template_name = 'post_edit.html'
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.type = 0
+        return super().form_valid(form)
+
+
+class ArticleCreate(CreateView):
+    # Указываем нашу разработанную форму
+    form_class = PostForm
+    # модель товаров
+    model = Post
+    # и новый шаблон, в котором используется форма.
+    template_name = 'post_edit.html'
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.type = 1
+        return super().form_valid(form)
+
+
+class PostUpdate(UpdateView):
+    form_class = PostForm
+    model = Post
+    template_name = 'post_edit.html'
+
+
+class NewsDelete(DeleteView):
+    model = Post
+    template_name = 'news_delete.html'
+    success_url = reverse_lazy('news_list')
+
+
+class ArticleDelete(DeleteView):
+    model = Post
+    template_name = 'article_delete.html'
+    success_url = reverse_lazy('articles_list')

@@ -25,4 +25,6 @@ urlpatterns = [
     path('', CommentList.as_view()),
     path('', BaseView.as_view()),
     path('', PostCreate.as_view()),
+    path('<int:pk>', PostListDetail.as_view(), name = 'post_detail'),
+    path('<int:pk>/update/', PostUpdate.as_view(), name='post_update'),
 ]
