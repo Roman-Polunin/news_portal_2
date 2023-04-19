@@ -150,7 +150,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
 SITE_ID = 1

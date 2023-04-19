@@ -21,7 +21,6 @@ from news.views import BaseView, PostList, PostListSearch, AuthorList, CategoryL
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('accounts/', include('allauth.urls')),
     path('authors/', AuthorList.as_view()),
     path('posts/', PostList.as_view(), name='post_list'),
     path('news/', NewsList.as_view(), name='news_list'),
@@ -38,7 +37,9 @@ urlpatterns = [
     path('articles/<int:pk>/update/', PostUpdate.as_view(), name='post_update'),
     path('news/<int:pk>/delete/', NewsDelete.as_view(), name='news_delete'),
     path('articles/<int:pk>/delete/', ArticleDelete.as_view(), name='article_delete'),
-    path('accounts/login/', LoginView.as_view(template_name = 'account/login.html'), name='login'),
-    path('accounts/logout/', LogoutView.as_view(template_name = 'account/logout.html'), name='logout'),
-    path('accounts/signup/', BaseRegisterView.as_view(template_name = 'account/signup.html'), name='signup'),
+    path('login/', LoginView.as_view(template_name = 'account/login.html'), name='login'),
+    path('logout/', LogoutView.as_view(template_name = 'account/logout.html'), name='logout'),
+    path('signup/', BaseRegisterView.as_view(template_name = 'account/signup.html'), name='signup'),
+    path('accounts/', include('allauth.urls')),
+
 ]

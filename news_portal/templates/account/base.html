@@ -1,98 +1,24 @@
+<!--
+{% extends "base.html" %}
+
+{% block body %}
+{% block content %}
+{% endblock content %}
+{% endblock body %}
+{% block extra_body %}
+{% endblock extra_body %}
+-->
 <!DOCTYPE html>
-{% load static %}
-<html lang="en">
+<html>
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
         <title>{% block head_title %}{% endblock head_title %}</title>
-        <!-- Favicon-->
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="{% static 'bootstrap-5.3.0-alpha1-dist/css/bootstrap.min.css' %}" rel="stylesheet" />
     </head>
     <body>
-        <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">News_portal project</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarColor02">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="/">Home
-            <span class="visually-hidden">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/admin/">Admin</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/contacts/">About</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menu</a>
-          <div class="dropdown-menu">
-              <a class="dropdown-item" href="/authors">Authors</a>
-              <a class="dropdown-item" href="/categories/">Categories</a>
-              <a class="dropdown-item">Posts</a>
-                      <div class="dropdown-item">
-                        <a class="dropdown-item" href="/posts/">Posts</a>
-                          <div class="subdropdown-menu">
-                                    <div class="dropdown-item">
-                                        <a class="dropdown-item" href="/posts/search">Search posts</a>
-                                    </div>
-                                </div>
-
-                        <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="/news/">News</a>
-                                <div class="subdropdown-menu">
-                                    <div class="dropdown-item">
-                                        <a class="dropdown-item" href="/news/create/">News create</a>
-                                        <a class="dropdown-item" href="/news/<int:pk>/update">News edit</a>
-                                        <a class="dropdown-item" href="/news/<int:pk>/delete">News delete</a>
-                                    </div>
-                                </div>
-
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/articles/">Articles</a>
-                          <div class="subdropdown-menu">
-                              <div class="dropdown-item">
-                                   <a class="dropdown-item" href="/articles/create/">Articles create</a>
-                                   <a class="dropdown-item" href="/articles/<int:pk>/update">Articles edit</a>
-                                   <a class="dropdown-item" href="/articles/<int:pk>/delete">Articles delete</a>
-                              </div>
-                          </div>
-                      </div>
-
-
-              <a class="dropdown-item" href="/comments/">Comments</a>
-          </div>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-sm-2" type="search" placeholder="Поиск">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Найти</button>
-      </form>
-    </div>
-  </div>
-</nav>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    {% block body %}
-                    {% block content %}
-                    {% endblock content %}
-                    {% endblock body %}
-                    {% block extra_body %}
-                    {% endblock extra_body %}
-                </div>
-            </div>
-        </div>
-        <script src="{% static 'jquery-3.6.4.min.js' %}"></script>
-        <script src="{% static 'bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.min.js' %}"></script>
+        {% block body %}
+        {% block content %}
+        {% endblock content %}
+        {% endblock body %}
+        {% block extra_body %}
+        {% endblock extra_body %}
     </body>
 </html>
