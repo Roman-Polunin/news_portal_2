@@ -14,12 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path, include
 from news.views import BaseView, PostList, PostListSearch, AuthorList, CategoryList, CommentList, NewsList, PostListDetail, ArticleList, ContactsView, \
-    NewsCreate, ArticleCreate, PostUpdate, NewsDelete, ArticleDelete
+    NewsCreate, ArticleCreate, PostUpdate, NewsDelete, ArticleDelete, BaseRegisterView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #path('accounts/', include('allauth.urls')),
     path('authors/', AuthorList.as_view()),
     path('posts/', PostList.as_view(), name='post_list'),
     path('news/', NewsList.as_view(), name='news_list'),
@@ -36,4 +38,7 @@ urlpatterns = [
     path('articles/<int:pk>/update/', PostUpdate.as_view(), name='post_update'),
     path('news/<int:pk>/delete/', NewsDelete.as_view(), name='news_delete'),
     path('articles/<int:pk>/delete/', ArticleDelete.as_view(), name='article_delete'),
+    path('accounts/login/', LoginView.as_view(template_name = 'account/login.html'), name='login'),
+    path('accounts/logout/', LogoutView.as_view(template_name = 'account/logout.html'), name='logout'),
+    path('accounts/signup/', BaseRegisterView.as_view(template_name = 'account/signup.html'), name='signup'),
 ]
