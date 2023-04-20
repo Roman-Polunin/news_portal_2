@@ -15,6 +15,10 @@ class BaseRegisterView(CreateView):
     success_url = '/'
 
 
+class IndexView(LoginRequiredMixin, TemplateView):
+    template_name = 'index.html'
+
+
 class AuthorList(ListView):
     model = Author
     ordering = 'user'

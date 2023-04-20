@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>{% block title %}Главная{% endblock title %}</title>
+        <title>{% block head_title %}Главная{% endblock head_title %}</title>
         <!-- Favicon-->
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'bootstrap-5.3.0-alpha1-dist/css/bootstrap.min.css' %}" rel="stylesheet" />
@@ -78,6 +78,13 @@
           </div>
         </li>
       </ul>
+        <ul class="navbar-nav me-auto">
+           <li class="nav-item">
+          <a>{{request.user.username}}
+            <span class="visually-hidden">(current)</span>
+          </a>
+        </li>
+        </ul>
       <form class="d-flex">
         <input class="form-control me-sm-2" type="search" placeholder="Поиск">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Найти</button>
@@ -123,9 +130,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    {% block content %}
-                    {{ content }}
-                    {% endblock content %}
+        {% block body %}
+        {% block content %}
+        {% endblock content %}
+        {% endblock body %}
+        {% block extra_body %}
+        {% endblock extra_body %}
                 </div>
             </div>
         </div>

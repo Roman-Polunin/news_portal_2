@@ -15,16 +15,29 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth.views import LoginView, LogoutView
 from .views import *
 
 
 urlpatterns = [
-    path('', AuthorList.as_view()),
-    path('', CategoryList.as_view()),
-    path('', PostList.as_view()),
-    path('', CommentList.as_view()),
+    path('', IndexView.as_view()),
+    path('authors/', AuthorList.as_view()),
+    path('posts/', PostList.as_view(), name='post_list'),
+    path('news/', NewsList.as_view(), name='news_list'),
+    path('articles/', ArticleList.as_view(), name='articles_list'),
+    path('posts/<int:pk>', PostListDetail.as_view(), name='post_detail'),
+    path('categories/', CategoryList.as_view()),
+    path('comments/', CommentList.as_view()),
     path('', BaseView.as_view()),
-    path('', PostCreate.as_view()),
-    path('<int:pk>', PostListDetail.as_view(), name = 'post_detail'),
-    path('<int:pk>/update/', PostUpdate.as_view(), name='post_update'),
+    path('contacts/', ContactsView.as_view()),
+    path('posts/search/', PostListSearch.as_view()),
+    path('news/create/', NewsCreate.as_view(), name='post_create'),
+    path('articles/create/', ArticleCreate.as_view(), name='post_create'),
+    path('news/<int:pk>/update/', PostUpdate.as_view(), name='post_update'),
+    path('articles/<int:pk>/update/', PostUpdate.as_view(), name='post_update'),
+    path('news/<int:pk>/delete/', NewsDelete.as_view(), name='news_delete'),
+    path('articles/<int:pk>/delete/', ArticleDelete.as_view(), name='article_delete'),
+    path('login/', LoginView.as_view(template_name='account/login.html'), name='login'),
+    path('logout/', LogoutView.as_view(template_name='account/logout.html'), name='logout'),
+    path('signup/', BaseRegisterView.as_view(template_name='account/signup.html'), name='signup'),
 ]
