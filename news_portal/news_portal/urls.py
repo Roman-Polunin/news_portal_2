@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path, include
 from news.views import BaseView, PostList, PostListSearch, AuthorList, CategoryList, CommentList, NewsList, PostListDetail, ArticleList, ContactsView, \
-    NewsCreate, ArticleCreate, PostUpdate, NewsDelete, ArticleDelete, BaseRegisterView
+    NewsCreate, ArticleCreate, PostUpdate, NewsDelete, ArticleDelete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
