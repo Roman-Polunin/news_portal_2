@@ -41,9 +41,15 @@ class Author(models.Model):  # наследуемся от класса Model
 
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    subscribers = models.ManyToManyField(User, through="CategorySubscribers")
 
     def __str__(self):
         return f'{self.name}'
+
+
+class CategorySubscribers(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    email = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 post_type = [(0, 'news'), (1, 'article')]
