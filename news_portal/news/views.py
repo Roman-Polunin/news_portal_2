@@ -5,14 +5,20 @@ from django.views.generic import ListView, TemplateView, DetailView, CreateView,
 from .models import *
 from .filters import PostFilter
 from .forms import PostForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, PermissionsMixin
 from django.views.generic.edit import CreateView
 
 
-class BaseRegisterView(CreateView):
+class BaseRegisterView(PermissionsMixin, CreateView):
     model = User
     form_class = BaseRegisterForm
     success_url = '/'
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        #User.user_permissions.set_attributes_from_name(name="common")
+        #user.get_group_permissions(self, getattr("common"))
+        return super().form_valid(form)
 
 
 class IndexView(LoginRequiredMixin, TemplateView):
