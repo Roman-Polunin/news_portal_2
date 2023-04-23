@@ -10,11 +10,20 @@
 <div class="container">
             <div class="row", style="margin-top:50px">
               {% for cat in categories %}
-                  <div class="col-sm">
-                    <div class="card border-secondary mb-3" style="max-width: 20rem;">
-                      <div class="card-header">{{cat.name}}</div>
+
+                    <div class="col-sm">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <div class="card border-secondary mb-3" style="max-width: 20rem;">
+                                <div class="card-header">{{cat.name}}</div>
+                                <div ><button style="max-width: 7rem;">Subscribes</button></div>
+                            </div>
+                        </form>
                     </div>
-                </div>
+
+
+
               {% endfor %}
             </div>
         </div>

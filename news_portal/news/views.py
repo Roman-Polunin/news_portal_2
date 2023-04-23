@@ -1,3 +1,5 @@
+from operator import concat
+
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
@@ -7,7 +9,15 @@ from .filters import PostFilter
 from .forms import PostForm
 from django.contrib.auth.models import User, PermissionsMixin
 from django.views.generic.edit import CreateView
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.template.loader import render_to_string
+from datetime import datetime
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
+SERVER_EMAIL = os.getenv('DJ_SECRET_SERVER_EMAIL')
+SERVER_HOST = os.getenv('DJ_SECRET_SERVER_HOST')
 
 class BaseRegisterView(CreateView):
     model = User
@@ -135,7 +145,43 @@ class NewsCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         post = form.save(commit=False)
         post.type = 0
+        user = self.request.user
+        super().form_valid(form)
+       # отправляем письмо
+        html_content = render_to_string(
+            'news_created.html',
+            {
+                'appointment': post,
+                'user': user,
+                'link': f'{SERVER_HOST}{"posts/"}{post.pk}',
+            }
+        )
+
+        msg = EmailMultiAlternatives(
+            subject=f'{post.title} {post.date_create.strftime("%Y-%m-%d")}',
+            body=f'{SERVER_HOST}{"posts/"}{post.pk} /'
+                 f'{post.post_text}',
+            from_email=SERVER_EMAIL,
+            to=[SERVER_EMAIL, 'romanpolunin2511@yandex.ru'],
+
+        )
+        msg.attach_alternative(html_content, "text/html")  # добавляем html
+
+        msg.send()
+
+        # send_mail(
+        #     subject=f'{post.title} {post.date_create.strftime("%Y-%m-%d")}',
+        #     message=f'{"http://127.0.0.1:8000/posts/"}{post.pk} /'
+        #             f'{post.post_text}',
+        #     from_email=SERVER_EMAIL,
+        #     recipient_list=[SERVER_EMAIL, 'romanpolunin2511@yandex.ru'],
+        #     fail_silently=False,
+        # )
+
         return super().form_valid(form)
+
+
+
 
 
 class ArticleCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
